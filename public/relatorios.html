@@ -1,0 +1,898 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Flow Granatt</title>
+    
+    <!-- Favicon - configuração completa para evitar erro 404 -->
+            <!-- Favicon padrão se não houver um configurado -->
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="shortcut icon" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="apple-touch-icon" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        
+    <!-- Prevenir busca automática de favicon.ico -->
+    <link rel="icon" href="data:,">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://www.taskflowgranatt.com.br/public/css/style.css" rel="stylesheet">
+    <link href="https://www.taskflowgranatt.com.br/public/css/personalizado.css?v=1775073582" rel="stylesheet" id="css-personalizado">
+    
+    <script>
+    // Sistema inteligente para carregamento do CSS personalizado
+    (function() {
+        let cssRecarregado = false;
+        let ultimaModificacao = null;
+        
+        // Função para recarregar o CSS personalizado
+        function recarregarCSSPersonalizado() {
+            const cssLink = document.getElementById('css-personalizado');
+            if (cssLink && !cssRecarregado) {
+                const timestamp = new Date().getTime();
+                cssLink.href = cssLink.href.split('?')[0] + '?v=' + timestamp;
+                cssRecarregado = true;
+                
+                // Marcar que foi recarregado
+                sessionStorage.setItem('cssRecarregado', 'true');
+                sessionStorage.setItem('cssTimestamp', timestamp.toString());
+            }
+        }
+        
+        // Verificar se o CSS já foi recarregado nesta sessão
+        function verificarStatusCSS() {
+            const recarregado = sessionStorage.getItem('cssRecarregado');
+            const timestamp = sessionStorage.getItem('cssTimestamp');
+            
+            if (recarregado === 'true' && timestamp) {
+                cssRecarregado = true;
+                ultimaModificacao = parseInt(timestamp);
+            }
+        }
+        
+        // Recarregar CSS apenas uma vez após o carregamento da página
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarStatusCSS();
+            
+            if (!cssRecarregado) {
+                // Aguardar um pouco para garantir que tudo esteja carregado
+                setTimeout(function() {
+                    recarregarCSSPersonalizado();
+                }, 1000);
+            }
+        });
+        
+        // Recarregar CSS apenas quando o usuário voltar para a página (visibilitychange)
+        // e apenas se não foi recarregado recentemente
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && !cssRecarregado) {
+                // Página se tornou visível novamente e CSS ainda não foi recarregado
+                setTimeout(function() {
+                    recarregarCSSPersonalizado();
+                }, 500);
+            }
+        });
+        
+        // Função para forçar recarregamento do CSS (pode ser chamada manualmente se necessário)
+        window.recarregarCSS = function() {
+            cssRecarregado = false;
+            sessionStorage.removeItem('cssRecarregado');
+            sessionStorage.removeItem('cssTimestamp');
+            recarregarCSSPersonalizado();
+        };
+        
+        // Função para verificar se há atualizações no CSS (pode ser chamada periodicamente se necessário)
+        window.verificarAtualizacoesCSS = function() {
+            // Esta função pode ser implementada para verificar se o arquivo CSS foi modificado
+            // Por enquanto, não faz nada para evitar reloads desnecessários
+        };
+    })();
+    </script>
+</head>
+<body>
+    	    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+                        <h6 class="mb-0">Menu de Navegação</h6>
+        </div>
+        
+        <ul class="sidebar-nav">
+                        <div class="nav-section">
+                <div class="nav-section-title">Principal</div>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                </li>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Gestão</div>
+                
+                                
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/relatorios">
+                        <i class="fas fa-clock"></i>
+                        Relatórios
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/apuracao">
+                        <i class="fas fa-calculator"></i>
+                        Apuração
+                    </a>
+                </li>
+                                
+                                
+                
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/onboard">
+                        <i class="fas fa-book-reader"></i>
+                        Onboard
+                    </a>
+                </li>
+                            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Sistema</div>
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/configuracoes">
+                        <i class="fas fa-cog"></i>
+                        Configurações
+                    </a>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link text-danger" href="https://www.taskflowgranatt.com.br/logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container-fluid">
+            <div class="header-content">
+                <!-- Botão de menu mobile -->
+                <button class="mobile-menu-toggle d-md-none" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <h1 class="header-title">TaskFlow Granatt</h1>
+                <div class="user-info">
+                    <span>Olá, Rafael Almeida Gama</span>
+                                            <small class="d-block text-light">
+                            <i class="fab fa-microsoft me-1"></i>Login Microsoft
+                        </small>
+                                        <div class="user-avatar">
+                        R                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <!-- Overlay para menu mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="container-fluid"> 
+<!-- Título da página -->
+<div class="pt-3 pb-2 mb-3">
+    <h1 class="h2" style="white-space: nowrap;">Relatórios de Atividade</h1>
+</div>
+
+<!-- Filtros -->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="row align-items-end">
+            <div class="col-md-12">
+                <div class="d-flex flex-wrap gap-3 align-items-end">
+                    <!-- Filtro de Mês -->
+                    <div class="flex-shrink-0">
+                        <label for="mes" class="form-label mb-1">Mês:</label>
+                        <select id="mes" class="form-select form-select-sm" style="width: auto; min-width: 120px; height: 38px;">
+                                                            <option value="1" >
+                                    Janeiro                                </option>
+                                                            <option value="2" >
+                                    Fevereiro                                </option>
+                                                            <option value="3" >
+                                    Março                                </option>
+                                                            <option value="4" selected>
+                                    Abril                                </option>
+                                                            <option value="5" >
+                                    Maio                                </option>
+                                                            <option value="6" >
+                                    Junho                                </option>
+                                                            <option value="7" >
+                                    Julho                                </option>
+                                                            <option value="8" >
+                                    Agosto                                </option>
+                                                            <option value="9" >
+                                    Setembro                                </option>
+                                                            <option value="10" >
+                                    Outubro                                </option>
+                                                            <option value="11" >
+                                    Novembro                                </option>
+                                                            <option value="12" >
+                                    Dezembro                                </option>
+                                                    </select>
+                    </div>
+                    
+                    <!-- Filtro de Ano -->
+                    <div class="flex-shrink-0">
+                        <label for="ano" class="form-label mb-1">Ano:</label>
+                        <select id="ano" class="form-select form-select-sm" style="width: auto; min-width: 100px; height: 38px;">
+                                                            <option value="2024" >
+                                    2024                                </option>
+                                                            <option value="2025" >
+                                    2025                                </option>
+                                                            <option value="2026" selected>
+                                    2026                                </option>
+                                                            <option value="2027" >
+                                    2027                                </option>
+                                                    </select>
+                    </div>
+                    
+                    <!-- Filtro de Intervalo de Datas -->
+                    <div class="flex-shrink-0">
+                        <label for="data_inicial" class="form-label mb-1">Data Inicial:</label>
+                        <input type="date" id="data_inicial" class="form-control form-control-sm" 
+                               style="width: auto; min-width: 140px; height: 38px;" 
+                               value="">
+                    </div>
+                    
+                    <div class="flex-shrink-0">
+                        <label for="data_final" class="form-label mb-1">Data Final:</label>
+                        <input type="date" id="data_final" class="form-control form-control-sm" 
+                               style="width: auto; min-width: 140px; height: 38px;" 
+                               value="">
+                    </div>
+                    
+                    <!-- Filtro de Projeto -->
+                    <div class="flex-shrink-0">
+                        <label for="projeto_id" class="form-label mb-1">Projeto:</label>
+                        <select id="projeto_id" class="form-select form-select-sm" style="width: auto; min-width: 200px;  height: 38px;">
+                            <option value="">Todos os projetos</option>
+                                                            <option value="4" >
+                                    Ciclo da Receita                                </option>
+                                                    </select>
+                    </div>
+                    
+                    <!-- Filtro de Usuário (apenas para administradores) -->
+                                        
+                    <!-- Filtro de Apenas Meus Registros (para todos os usuários) -->
+                    <div class="flex-shrink-0">
+                        <div class="form-check" style="margin-top: 25px;">
+                                                            <!-- Consultores: checkbox sempre marcado e desabilitado -->
+                                <input class="form-check-input" type="checkbox" id="apenas_meus_registros" checked disabled>
+                                <label class="form-check-label" for="apenas_meus_registros" style="color: #6c757d;">
+                                    Apenas meus registros
+                                </label>
+                                                    </div>
+                    </div>
+                    
+                    <!-- Botão Filtrar -->
+                    <div class="flex-shrink-0">
+                        <button id="filtrar" class="btn btn-primary btn-sm">
+                            <i class="fas fa-search"></i> Filtrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calendário -->
+<div class="card shadow">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <span class="d-none d-md-inline">Calendário de Atividades</span>
+            <span class="d-inline d-md-none">Calendário</span>
+        </h6>
+        <div class="d-flex gap-2">
+            <!-- Botão Exportar -->
+            <div class="dropdown">
+                <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="exportarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-download"></i> Exportar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="exportarDropdown">
+                    <li><a class="dropdown-item" href="#" onclick="exportarRelatorio('pdf')">
+                        <i class="fas fa-file-pdf"></i> Exportar PDF
+                    </a></li>
+                    <li><a class="dropdown-item" href="#" onclick="exportarRelatorio('excel')">
+                        <i class="fas fa-file-excel"></i> Exportar Excel
+                    </a></li>
+                </ul>
+            </div>
+            
+            <!-- Botão Novo Lançamento -->
+            <a href="https://www.taskflowgranatt.com.br/relatorios/criar" class="btn btn-primary btn-sm" >
+                <i class="fas fa-plus"></i> 
+                <span class="d-none d-md-inline">Novo Lançamento</span>
+                <span class="d-inline d-md-none">Novo</span>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="calendario" class="calendario-container">
+            <!-- O calendário será gerado via JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal para detalhes do dia -->
+<div class="modal fade" id="modalDetalhes" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalhes do Dia</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detalhesConteudo">
+                    <!-- Conteúdo será carregado via AJAX -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.calendario-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    pointer-events: auto;
+}
+
+/* Centralizar modal */
+#modalDetalhes .modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+#modalDetalhes .modal-content {
+    margin: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Garantir que o modal fique na frente do backdrop */
+#modalDetalhes {
+    z-index: 10055 !important;
+}
+
+#modalDetalhes.show {
+    z-index: 10055 !important;
+}
+
+/* Ajustar backdrop para ficar atrás do modal */
+.modal-backdrop {
+    z-index: 10050 !important;
+}
+
+.calendario {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.calendario th {
+    background: var(--cor-tabela-header);
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    width: 14.28%;
+}
+
+.calendario td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    height: 100px;
+    width: 14.28%;
+    vertical-align: top;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    word-wrap: break-word;
+    overflow: hidden;
+    pointer-events: auto;
+}
+
+.calendario td:hover {
+    background-color: #f8f9fa;
+}
+
+.calendario td.outro-mes {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+.calendario td.hoje {
+    background-color: #e3f2fd;
+    font-weight: bold;
+}
+
+.calendario td.com-atividades {
+    background-color: #fff3cd;
+}
+
+.calendario td.com-atividades:hover {
+    background-color: #ffeaa7;
+}
+
+.dia-numero {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.atividades-info {
+    font-size: 0.8rem;
+    color: #666;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.atividades-info .badge {
+    font-size: 0.7rem;
+    margin-right: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.atividades-info .horas {
+    color: var(--accent-color);
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.projeto-atividade {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 2px;
+}
+
+.projeto-atividade .badge {
+    flex-shrink: 0;
+    min-width: 20px;
+    text-align: center;
+}
+
+.projeto-atividade .projeto-nome {
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dadosCalendario = [];
+    const mesAtual = 04;
+    const anoAtual = 2026;
+    
+    function gerarCalendario(mes, ano, dados) {
+        const primeiroDia = new Date(ano, mes - 1, 1);
+        const ultimoDia = new Date(ano, mes, 0);
+        const primeiroDiaSemana = primeiroDia.getDay();
+        const totalDias = ultimoDia.getDate();
+        
+        const nomesMeses = [
+            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+        ];
+        
+        const nomesDias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+        
+        let html = `
+            <div class="text-center mb-3">
+                <h4>${nomesMeses[mes - 1]} ${ano}</h4>
+            </div>
+            <table class="calendario">
+                <thead>
+                    <tr>
+        `;
+        
+        nomesDias.forEach(dia => {
+            html += `<th>${dia}</th>`;
+        });
+        
+        html += '</tr></thead><tbody>';
+        
+        let dia = 1;
+        const hoje = new Date();
+        
+        for (let i = 0; i < 6; i++) {
+            html += '<tr>';
+            
+            for (let j = 0; j < 7; j++) {
+                if (i === 0 && j < primeiroDiaSemana) {
+                    // Dias do mês anterior
+                    const diaAnterior = new Date(ano, mes - 1, 0);
+                    const diaAnteriorNum = diaAnterior.getDate() - (primeiroDiaSemana - j - 1);
+                    html += `<td class="outro-mes">${diaAnteriorNum}</td>`;
+                } else if (dia > totalDias) {
+                    // Dias do próximo mês
+                    const diaProximo = dia - totalDias;
+                    html += `<td class="outro-mes">${diaProximo}</td>`;
+                    dia++;
+                } else {
+                    // Dias do mês atual
+                    const dataStr = `${ano}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+                    const dadosDia = dados[dataStr];
+                    const isHoje = hoje.getDate() === dia && hoje.getMonth() === mes - 1 && hoje.getFullYear() === ano;
+                    const temAtividades = dadosDia && dadosDia.total_registros > 0;
+                    
+                    let classes = '';
+                    if (isHoje) classes += ' hoje';
+                    if (temAtividades) classes += ' com-atividades';
+                    
+                    html += `<td class="${classes}" data-data="${dataStr}" onclick="mostrarDetalhes('${dataStr}')">`;
+                    html += `<div class="dia-numero">${dia}</div>`;
+                    
+                                         if (dadosDia && dadosDia.total_registros > 0) {
+                         html += `<div class="atividades-info">`;
+                         
+                         // Mostrar atividades por projeto
+                         dadosDia.projetos.forEach(projeto => {
+                             html += `<div class="projeto-atividade mb-1">`;
+                             html += `<span class="badge" style="background-color: ${projeto.cor}; color: white; font-size: 0.6rem;">`;
+                             html += `${projeto.registros} ${projeto.registros === 1 ? 'atividade' : 'atividades'}`;
+                             html += `</span>`;
+                             html += `<small class="projeto-nome" style="color: ${projeto.cor}; font-weight: bold;">${projeto.nome}</small>`;
+                             html += `</div>`;
+                         });
+                         
+                         html += `<div class="horas">${dadosDia.total_horas}h</div>`;
+                         html += `</div>`;
+                     }
+                    
+                    html += '</td>';
+                    dia++;
+                }
+            }
+            
+            html += '</tr>';
+        }
+        
+        html += '</tbody></table>';
+        
+        document.getElementById('calendario').innerHTML = html;
+    }
+    
+    // Gerar calendário inicial
+    gerarCalendario(mesAtual, anoAtual, dadosCalendario);
+    
+    // Filtro de mês/ano/projeto/usuário
+    document.getElementById('filtrar').addEventListener('click', function() {
+        aplicarFiltros();
+    });
+    
+    // Limpar campos de data quando o mês for alterado
+    document.getElementById('mes').addEventListener('change', function() {
+        document.getElementById('data_inicial').value = '';
+        document.getElementById('data_final').value = '';
+    });
+    
+    // Função para aplicar filtros
+    function aplicarFiltros() {
+        const mes = document.getElementById('mes').value;
+        const ano = document.getElementById('ano').value;
+        const data_inicial = document.getElementById('data_inicial').value;
+        const data_final = document.getElementById('data_final').value;
+        const projeto_id = document.getElementById('projeto_id').value;
+        const usuario_id = document.getElementById('usuario_id') ? document.getElementById('usuario_id').value : '';
+        const checkboxApenasMeus = document.getElementById('apenas_meus_registros');
+        
+        // Determinar se deve aplicar filtro "apenas meus registros"
+        let apenasMeus = false;
+        const userType = 'Consultor';
+        
+        if (userType === 'Consultor') {
+            // Consultores sempre veem apenas seus registros
+            apenasMeus = true;
+        } else if (checkboxApenasMeus) {
+            // Administradores e Gestores: usar valor do checkbox
+            apenasMeus = checkboxApenasMeus.checked;
+        } else {
+            // Fallback: aplicar filtro por segurança
+            apenasMeus = true;
+        }
+        
+        let url = `https://www.taskflowgranatt.com.br/relatorios?mes=${mes}&ano=${ano}`;
+        if (data_inicial) {
+            url += `&data_inicial=${data_inicial}`;
+        }
+        if (data_final) {
+            url += `&data_final=${data_final}`;
+        }
+        if (projeto_id) {
+            url += `&projeto_id=${projeto_id}`;
+        }
+        if (usuario_id) {
+            url += `&usuario_id=${usuario_id}`;
+        }
+        if (apenasMeus) {
+            url += `&apenas_meus=1`;
+        }
+        window.location.href = url;
+    }
+    
+
+});
+
+function mostrarDetalhes(data) {
+    const modalElement = document.getElementById('modalDetalhes');
+    const modal = new bootstrap.Modal(modalElement);
+    const conteudo = document.getElementById('detalhesConteudo');
+    
+    // Mostrar loading
+    conteudo.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Carregando...</div>';
+    
+    // Garantir que o modal seja exibido corretamente
+    modal.show();
+    
+    // Obter filtros atuais
+    const data_inicial = document.getElementById('data_inicial').value;
+    const data_final = document.getElementById('data_final').value;
+    const projeto_id = document.getElementById('projeto_id').value;
+    const usuario_id = document.getElementById('usuario_id') ? document.getElementById('usuario_id').value : '';
+    const checkboxApenasMeus = document.getElementById('apenas_meus_registros');
+    
+    // Determinar se deve aplicar filtro "apenas meus registros"
+    let apenasMeus = false;
+    const userType = 'Consultor';
+    
+    if (userType === 'Consultor') {
+        // Consultores sempre veem apenas seus registros
+        apenasMeus = true;
+    } else if (checkboxApenasMeus) {
+        // Administradores e Gestores: usar valor do checkbox
+        apenasMeus = checkboxApenasMeus.checked;
+    } else {
+        // Fallback: aplicar filtro por segurança
+        apenasMeus = true;
+    }
+    
+    let url = `https://www.taskflowgranatt.com.br/relatorios/detalhes-dia?data=${data}`;
+    if (data_inicial) {
+        url += `&data_inicial=${data_inicial}`;
+    }
+    if (data_final) {
+        url += `&data_final=${data_final}`;
+    }
+    if (projeto_id) {
+        url += `&projeto_id=${projeto_id}`;
+    }
+    if (usuario_id) {
+        url += `&usuario_id=${usuario_id}`;
+    }
+    if (apenasMeus) {
+        url += `&apenas_meus=1`;
+    }
+    
+
+    
+    // Buscar detalhes via AJAX
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.relatorios.length === 0) {
+                conteudo.innerHTML = '<p class="text-muted">Nenhuma atividade registrada neste dia.</p>';
+                return;
+            }
+            
+            // Criar data de forma explícita para evitar problemas de timezone
+            const [ano, mes, dia] = data.data.split('-');
+            const dataFormatada = new Date(ano, mes - 1, dia);
+            let html = `<h6>Atividades de ${dataFormatada.toLocaleDateString('pt-BR')}</h6>`;
+            html += '<div class="table-responsive"><table class="table table-sm">';
+            html += '<thead><tr><th>Hora</th><th>Projeto</th><th>Usuário</th><th>Duração</th><th>Descrição</th><th>Ações</th></tr></thead><tbody>';
+            
+            data.relatorios.forEach(relatorio => {
+                const horaInicial = new Date(`2000-01-01T${relatorio.hora_inicial}`);
+                const horaFinal = new Date(`2000-01-01T${relatorio.hora_final}`);
+                const duracao = Math.round((horaFinal - horaInicial) / (1000 * 60 * 60) * 100) / 100;
+                
+                html += '<tr>';
+                html += `<td>${relatorio.hora_inicial} - ${relatorio.hora_final}</td>`;
+                html += `<td>${relatorio.projeto_nome}</td>`;
+                html += `<td>${relatorio.usuario_nome}</td>`;
+                html += `<td>${duracao}h</td>`;
+                html += `<td><span class="text-truncate d-inline-block" style="max-width: 200px;" title="${relatorio.descricao}">${relatorio.descricao}</span></td>`;
+                html += '<td>';
+                html += `<div class="d-flex gap-1">`;
+                html += `<a href="https://www.taskflowgranatt.com.br/relatorios/editar?id=${relatorio.id}" class="btn btn-xs btn-warning" title="Editar"><i class="fas fa-edit fa-xs"></i></a>`;
+                html += `<a href="https://www.taskflowgranatt.com.br/relatorios/excluir?id=${relatorio.id}" class="btn btn-xs btn-danger" onclick="return confirm('Tem certeza que deseja excluir este relatório?')" title="Excluir"><i class="fas fa-trash fa-xs"></i></a>`;
+                html += `</div>`;
+                html += '</td>';
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table></div>';
+            conteudo.innerHTML = html;
+        })
+        .catch(error => {
+            conteudo.innerHTML = '<p class="text-danger">Erro ao carregar detalhes.</p>';
+        });
+ }
+ 
+ function exportarRelatorio(tipo) {
+     const mes = document.getElementById('mes').value;
+     const ano = document.getElementById('ano').value;
+     const data_inicial = document.getElementById('data_inicial').value;
+     const data_final = document.getElementById('data_final').value;
+     const projeto_id = document.getElementById('projeto_id').value;
+     const usuario_id = document.getElementById('usuario_id') ? document.getElementById('usuario_id').value : '';
+     const checkboxApenasMeus = document.getElementById('apenas_meus_registros');
+     
+     // Determinar se deve aplicar filtro "apenas meus registros"
+     let apenasMeus = false;
+     const userType = 'Consultor';
+     
+     if (userType === 'Consultor') {
+         // Consultores sempre veem apenas seus registros
+         apenasMeus = true;
+     } else if (checkboxApenasMeus) {
+         // Administradores e Gestores: usar valor do checkbox
+         apenasMeus = checkboxApenasMeus.checked;
+     } else {
+         // Fallback: aplicar filtro por segurança
+         apenasMeus = true;
+     }
+     
+     let url = `https://www.taskflowgranatt.com.br/relatorios/exportar?tipo=${tipo}&mes=${mes}&ano=${ano}`;
+     if (data_inicial) {
+         url += `&data_inicial=${data_inicial}`;
+     }
+     if (data_final) {
+         url += `&data_final=${data_final}`;
+     }
+     if (projeto_id) {
+         url += `&projeto_id=${projeto_id}`;
+     }
+     if (usuario_id) {
+         url += `&usuario_id=${usuario_id}`;
+     }
+     if (apenasMeus) {
+         url += `&apenas_meus=1`;
+     }
+     
+     // Abrir em nova aba para download
+     window.open(url, '_blank');
+ }
+ </script>
+
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const toggleIcon = sidebarToggle.querySelector('i');
+            
+            // Clear localStorage to start fresh
+            localStorage.removeItem('sidebarCollapsed');
+            
+            // Check if sidebar state is saved in localStorage
+            const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            
+            if (sidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+                sidebarToggle.classList.add('collapsed');
+                toggleIcon.classList.remove('fa-bars');
+                toggleIcon.classList.add('fa-chevron-right');
+            } else {
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-bars');
+            }
+            
+            // Toggle do menu desktop
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                sidebarToggle.classList.toggle('collapsed');
+                
+                // Toggle icon
+                if (sidebar.classList.contains('collapsed')) {
+                    toggleIcon.classList.remove('fa-bars');
+                    toggleIcon.classList.add('fa-chevron-right');
+                    localStorage.setItem('sidebarCollapsed', 'true');
+                } else {
+                    toggleIcon.classList.remove('fa-chevron-right');
+                    toggleIcon.classList.add('fa-bars');
+                    localStorage.setItem('sidebarCollapsed', 'false');
+                }
+            });
+            
+            // Toggle do menu mobile
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    sidebarOverlay.classList.toggle('show');
+                    document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
+                });
+            }
+            
+            // Fechar menu mobile ao clicar no overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            // Fechar menu mobile ao redimensionar para desktop
+            function handleResize() {
+                if (window.innerWidth <= 768) {
+                    // Em mobile, sempre começar com menu fechado
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                    
+                    // Manter comportamento desktop
+                    if (!sidebarCollapsed) {
+                        sidebar.classList.remove('collapsed');
+                        mainContent.classList.remove('expanded');
+                        sidebarToggle.classList.remove('collapsed');
+                    }
+                } else {
+                    // Em desktop, restaurar estado salvo
+                    if (sidebarCollapsed) {
+                        sidebar.classList.add('collapsed');
+                        mainContent.classList.add('expanded');
+                        sidebarToggle.classList.add('collapsed');
+                    }
+                }
+            }
+            
+            // Initial check
+            handleResize();
+            
+            // Listen for window resize
+            window.addEventListener('resize', handleResize);
+            
+            // Add active class to current page
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') && currentPath.includes(link.getAttribute('href').split('/').pop())) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Flow Granatt</title>
+    
+    <!-- Favicon - configuração completa para evitar erro 404 -->
+            <!-- Favicon padrão se não houver um configurado -->
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="shortcut icon" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="apple-touch-icon" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        
+    <!-- Prevenir busca automática de favicon.ico -->
+    <link rel="icon" href="data:,">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://www.taskflowgranatt.com.br/public/css/style.css" rel="stylesheet">
+    <link href="https://www.taskflowgranatt.com.br/public/css/personalizado.css?v=1775073708" rel="stylesheet" id="css-personalizado">
+    
+    <script>
+    // Sistema inteligente para carregamento do CSS personalizado
+    (function() {
+        let cssRecarregado = false;
+        let ultimaModificacao = null;
+        
+        // Função para recarregar o CSS personalizado
+        function recarregarCSSPersonalizado() {
+            const cssLink = document.getElementById('css-personalizado');
+            if (cssLink && !cssRecarregado) {
+                const timestamp = new Date().getTime();
+                cssLink.href = cssLink.href.split('?')[0] + '?v=' + timestamp;
+                cssRecarregado = true;
+                
+                // Marcar que foi recarregado
+                sessionStorage.setItem('cssRecarregado', 'true');
+                sessionStorage.setItem('cssTimestamp', timestamp.toString());
+            }
+        }
+        
+        // Verificar se o CSS já foi recarregado nesta sessão
+        function verificarStatusCSS() {
+            const recarregado = sessionStorage.getItem('cssRecarregado');
+            const timestamp = sessionStorage.getItem('cssTimestamp');
+            
+            if (recarregado === 'true' && timestamp) {
+                cssRecarregado = true;
+                ultimaModificacao = parseInt(timestamp);
+            }
+        }
+        
+        // Recarregar CSS apenas uma vez após o carregamento da página
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarStatusCSS();
+            
+            if (!cssRecarregado) {
+                // Aguardar um pouco para garantir que tudo esteja carregado
+                setTimeout(function() {
+                    recarregarCSSPersonalizado();
+                }, 1000);
+            }
+        });
+        
+        // Recarregar CSS apenas quando o usuário voltar para a página (visibilitychange)
+        // e apenas se não foi recarregado recentemente
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && !cssRecarregado) {
+                // Página se tornou visível novamente e CSS ainda não foi recarregado
+                setTimeout(function() {
+                    recarregarCSSPersonalizado();
+                }, 500);
+            }
+        });
+        
+        // Função para forçar recarregamento do CSS (pode ser chamada manualmente se necessário)
+        window.recarregarCSS = function() {
+            cssRecarregado = false;
+            sessionStorage.removeItem('cssRecarregado');
+            sessionStorage.removeItem('cssTimestamp');
+            recarregarCSSPersonalizado();
+        };
+        
+        // Função para verificar se há atualizações no CSS (pode ser chamada periodicamente se necessário)
+        window.verificarAtualizacoesCSS = function() {
+            // Esta função pode ser implementada para verificar se o arquivo CSS foi modificado
+            // Por enquanto, não faz nada para evitar reloads desnecessários
+        };
+    })();
+    </script>
+</head>
+<body>
+    	    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+                        <h6 class="mb-0">Menu de Navegação</h6>
+        </div>
+        
+        <ul class="sidebar-nav">
+                        <div class="nav-section">
+                <div class="nav-section-title">Principal</div>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                </li>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Gestão</div>
+                
+                                
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/relatorios">
+                        <i class="fas fa-clock"></i>
+                        Relatórios
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/apuracao">
+                        <i class="fas fa-calculator"></i>
+                        Apuração
+                    </a>
+                </li>
+                                
+                                
+                
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/onboard">
+                        <i class="fas fa-book-reader"></i>
+                        Onboard
+                    </a>
+                </li>
+                            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Sistema</div>
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/configuracoes">
+                        <i class="fas fa-cog"></i>
+                        Configurações
+                    </a>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link text-danger" href="https://www.taskflowgranatt.com.br/logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container-fluid">
+            <div class="header-content">
+                <!-- Botão de menu mobile -->
+                <button class="mobile-menu-toggle d-md-none" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <h1 class="header-title">TaskFlow Granatt</h1>
+                <div class="user-info">
+                    <span>Olá, Rafael Almeida Gama</span>
+                                            <small class="d-block text-light">
+                            <i class="fab fa-microsoft me-1"></i>Login Microsoft
+                        </small>
+                                        <div class="user-avatar">
+                        R                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <!-- Overlay para menu mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="container-fluid"> 
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Configurações</h1>
+</div>
+
+<div class="card shadow mb-3">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Meus dados</h6>
+    </div>
+    <div class="card-body">
+        
+        <p class="text-muted">Atualize CPF, CNPJ, data de nascimento e WhatsApp. A data de nascimento é usada nos aniversariantes do mês.</p>
+
+        <form method="POST" action="https://www.taskflowgranatt.com.br/configuracoes/perfil">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf"
+                               value="130.897.767-07" placeholder="000.000.000-00">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="cnpj" class="form-label">CNPJ</label>
+                        <input type="text" class="form-control" id="cnpj" name="cnpj"
+                               value="42.885.222/0001-89" placeholder="00.000.000/0000-00">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="data_nascimento" class="form-label">Data de nascimento</label>
+                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
+                               value="1996-10-28">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="whatsapp" class="form-label">WhatsApp</label>
+                        <input type="text" class="form-control" id="whatsapp" name="whatsapp"
+                               value="(21) 96451-1955" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cpfInput = document.getElementById('cpf');
+    if (cpfInput) {
+        cpfInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                e.target.value = value;
+            }
+        });
+    }
+    const cnpjInput = document.getElementById('cnpj');
+    if (cnpjInput) {
+        cnpjInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 14) {
+                value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+                e.target.value = value;
+            }
+        });
+    }
+    const whatsappInput = document.getElementById('whatsapp');
+    if (whatsappInput) {
+        whatsappInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                e.target.value = value;
+            }
+        });
+    }
+});
+</script>
+
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const toggleIcon = sidebarToggle.querySelector('i');
+            
+            // Clear localStorage to start fresh
+            localStorage.removeItem('sidebarCollapsed');
+            
+            // Check if sidebar state is saved in localStorage
+            const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            
+            if (sidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+                sidebarToggle.classList.add('collapsed');
+                toggleIcon.classList.remove('fa-bars');
+                toggleIcon.classList.add('fa-chevron-right');
+            } else {
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-bars');
+            }
+            
+            // Toggle do menu desktop
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                sidebarToggle.classList.toggle('collapsed');
+                
+                // Toggle icon
+                if (sidebar.classList.contains('collapsed')) {
+                    toggleIcon.classList.remove('fa-bars');
+                    toggleIcon.classList.add('fa-chevron-right');
+                    localStorage.setItem('sidebarCollapsed', 'true');
+                } else {
+                    toggleIcon.classList.remove('fa-chevron-right');
+                    toggleIcon.classList.add('fa-bars');
+                    localStorage.setItem('sidebarCollapsed', 'false');
+                }
+            });
+            
+            // Toggle do menu mobile
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    sidebarOverlay.classList.toggle('show');
+                    document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
+                });
+            }
+            
+            // Fechar menu mobile ao clicar no overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            // Fechar menu mobile ao redimensionar para desktop
+            function handleResize() {
+                if (window.innerWidth <= 768) {
+                    // Em mobile, sempre começar com menu fechado
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                    
+                    // Manter comportamento desktop
+                    if (!sidebarCollapsed) {
+                        sidebar.classList.remove('collapsed');
+                        mainContent.classList.remove('expanded');
+                        sidebarToggle.classList.remove('collapsed');
+                    }
+                } else {
+                    // Em desktop, restaurar estado salvo
+                    if (sidebarCollapsed) {
+                        sidebar.classList.add('collapsed');
+                        mainContent.classList.add('expanded');
+                        sidebarToggle.classList.add('collapsed');
+                    }
+                }
+            }
+            
+            // Initial check
+            handleResize();
+            
+            // Listen for window resize
+            window.addEventListener('resize', handleResize);
+            
+            // Add active class to current page
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') && currentPath.includes(link.getAttribute('href').split('/').pop())) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

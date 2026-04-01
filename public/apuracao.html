@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Flow Granatt</title>
+    
+    <!-- Favicon - configuração completa para evitar erro 404 -->
+            <!-- Favicon padrão se não houver um configurado -->
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="shortcut icon" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        <link rel="apple-touch-icon" href="https://www.taskflowgranatt.com.br/public/uploads/favicon_sistema.png">
+        
+    <!-- Prevenir busca automática de favicon.ico -->
+    <link rel="icon" href="data:,">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://www.taskflowgranatt.com.br/public/css/style.css" rel="stylesheet">
+    <link href="https://www.taskflowgranatt.com.br/public/css/personalizado.css?v=1775073639" rel="stylesheet" id="css-personalizado">
+    
+    <script>
+    // Sistema inteligente para carregamento do CSS personalizado
+    (function() {
+        let cssRecarregado = false;
+        let ultimaModificacao = null;
+        
+        // Função para recarregar o CSS personalizado
+        function recarregarCSSPersonalizado() {
+            const cssLink = document.getElementById('css-personalizado');
+            if (cssLink && !cssRecarregado) {
+                const timestamp = new Date().getTime();
+                cssLink.href = cssLink.href.split('?')[0] + '?v=' + timestamp;
+                cssRecarregado = true;
+                
+                // Marcar que foi recarregado
+                sessionStorage.setItem('cssRecarregado', 'true');
+                sessionStorage.setItem('cssTimestamp', timestamp.toString());
+            }
+        }
+        
+        // Verificar se o CSS já foi recarregado nesta sessão
+        function verificarStatusCSS() {
+            const recarregado = sessionStorage.getItem('cssRecarregado');
+            const timestamp = sessionStorage.getItem('cssTimestamp');
+            
+            if (recarregado === 'true' && timestamp) {
+                cssRecarregado = true;
+                ultimaModificacao = parseInt(timestamp);
+            }
+        }
+        
+        // Recarregar CSS apenas uma vez após o carregamento da página
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarStatusCSS();
+            
+            if (!cssRecarregado) {
+                // Aguardar um pouco para garantir que tudo esteja carregado
+                setTimeout(function() {
+                    recarregarCSSPersonalizado();
+                }, 1000);
+            }
+        });
+        
+        // Recarregar CSS apenas quando o usuário voltar para a página (visibilitychange)
+        // e apenas se não foi recarregado recentemente
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && !cssRecarregado) {
+                // Página se tornou visível novamente e CSS ainda não foi recarregado
+                setTimeout(function() {
+                    recarregarCSSPersonalizado();
+                }, 500);
+            }
+        });
+        
+        // Função para forçar recarregamento do CSS (pode ser chamada manualmente se necessário)
+        window.recarregarCSS = function() {
+            cssRecarregado = false;
+            sessionStorage.removeItem('cssRecarregado');
+            sessionStorage.removeItem('cssTimestamp');
+            recarregarCSSPersonalizado();
+        };
+        
+        // Função para verificar se há atualizações no CSS (pode ser chamada periodicamente se necessário)
+        window.verificarAtualizacoesCSS = function() {
+            // Esta função pode ser implementada para verificar se o arquivo CSS foi modificado
+            // Por enquanto, não faz nada para evitar reloads desnecessários
+        };
+    })();
+    </script>
+</head>
+<body>
+    	    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+                        <h6 class="mb-0">Menu de Navegação</h6>
+        </div>
+        
+        <ul class="sidebar-nav">
+                        <div class="nav-section">
+                <div class="nav-section-title">Principal</div>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                </li>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Gestão</div>
+                
+                                
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/relatorios">
+                        <i class="fas fa-clock"></i>
+                        Relatórios
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/apuracao">
+                        <i class="fas fa-calculator"></i>
+                        Apuração
+                    </a>
+                </li>
+                                
+                                
+                
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/onboard">
+                        <i class="fas fa-book-reader"></i>
+                        Onboard
+                    </a>
+                </li>
+                            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Sistema</div>
+                                <li class="nav-item">
+                    <a class="nav-link" href="https://www.taskflowgranatt.com.br/configuracoes">
+                        <i class="fas fa-cog"></i>
+                        Configurações
+                    </a>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link text-danger" href="https://www.taskflowgranatt.com.br/logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container-fluid">
+            <div class="header-content">
+                <!-- Botão de menu mobile -->
+                <button class="mobile-menu-toggle d-md-none" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <h1 class="header-title">TaskFlow Granatt</h1>
+                <div class="user-info">
+                    <span>Olá, Rafael Almeida Gama</span>
+                                            <small class="d-block text-light">
+                            <i class="fab fa-microsoft me-1"></i>Login Microsoft
+                        </small>
+                                        <div class="user-avatar">
+                        R                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <!-- Overlay para menu mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="container-fluid"> 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+
+                </div>
+                <h4 class="page-title">Apuração de Horas</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Filtros e Consolidação -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Filtros e Consolidação</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="mes" class="form-label">Mês</label>
+                            <select name="mes" id="mes" class="form-select">
+                                                                    <option value="1" >
+                                        Janeiro                                    </option>
+                                                                    <option value="2" >
+                                        Fevereiro                                    </option>
+                                                                    <option value="3" >
+                                        Março                                    </option>
+                                                                    <option value="4" selected>
+                                        Abril                                    </option>
+                                                                    <option value="5" >
+                                        Maio                                    </option>
+                                                                    <option value="6" >
+                                        Junho                                    </option>
+                                                                    <option value="7" >
+                                        Julho                                    </option>
+                                                                    <option value="8" >
+                                        Agosto                                    </option>
+                                                                    <option value="9" >
+                                        Setembro                                    </option>
+                                                                    <option value="10" >
+                                        Outubro                                    </option>
+                                                                    <option value="11" >
+                                        Novembro                                    </option>
+                                                                    <option value="12" >
+                                        Dezembro                                    </option>
+                                                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ano" class="form-label">Ano</label>
+                            <select name="ano" id="ano" class="form-select">
+                                                                    <option value="2024" >
+                                        2024                                    </option>
+                                                                    <option value="2025" >
+                                        2025                                    </option>
+                                                                    <option value="2026" selected>
+                                        2026                                    </option>
+                                                                    <option value="2027" >
+                                        2027                                    </option>
+                                                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="projeto_id" class="form-label">Projeto (Opcional)</label>
+                            <select name="projeto_id" id="projeto_id" class="form-select">
+                                <option value="">Todos os projetos</option>
+                                                                    <option value="4" >
+                                        Ciclo da Receita                                    </option>
+                                                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">&nbsp;</label>
+                            <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-primary" onclick="filtrar()">
+                                    <i class="fas fa-filter"></i> Filtrar
+                                </button>
+                                                            </div>
+                        </div>
+                    </div>
+                    
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- Resultados da Apuração -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Resultados da Apuração</h5>
+                    <div>
+                                                <a href="https://www.taskflowgranatt.com.br/apuracao/exportar?mes=04&ano=2026&projeto_id=" 
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="mdi mdi-download"></i> Exportar CSV
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                                            <div class="text-center py-4">
+                            <i class="mdi mdi-information-outline text-muted" style="font-size: 3rem;"></i>
+                            <h5 class="text-muted mt-2">Nenhuma apuração encontrada</h5>
+                            <p class="text-muted">Para visualizar as apurações, realize a consolidação do período desejado.</p>
+                        </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modais para Anexos -->
+
+<!-- Modais para Visualizar Anexos -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicialização dos componentes
+    
+    // Configurar eventos para carregar anexos quando modais forem abertos
+    const modaisVisualizarAnexos = document.querySelectorAll('[id^="modalVisualizarAnexos"]');
+    modaisVisualizarAnexos.forEach(modal => {
+        modal.addEventListener('show.bs.modal', function() {
+            const apuracaoId = this.id.replace('modalVisualizarAnexos', '');
+            carregarAnexos(apuracaoId);
+        });
+    });
+});
+
+// Função para filtrar os resultados
+function filtrar() {
+    const mes = document.getElementById('mes').value;
+    const ano = document.getElementById('ano').value;
+    const projeto_id = document.getElementById('projeto_id').value;
+    
+    // Construir URL com parâmetros
+    let url = 'https://www.taskflowgranatt.com.br/apuracao?';
+    if (mes) url += 'mes=' + mes + '&';
+    if (ano) url += 'ano=' + ano + '&';
+    if (projeto_id) url += 'projeto_id=' + projeto_id + '&';
+    
+    // Remover último & se existir
+    url = url.replace(/&$/, '');
+    
+    // Redirecionar para a página com filtros
+    window.location.href = url;
+}
+
+// Função para consolidar as horas
+function consolidar() {
+    const mes = document.getElementById('mes').value;
+    const ano = document.getElementById('ano').value;
+    const projeto_id = document.getElementById('projeto_id').value;
+    
+    // Validar campos obrigatórios
+    if (!mes || !ano) {
+        alert('Mês e Ano são obrigatórios para consolidação.');
+        return;
+    }
+    
+    // Confirmar ação
+    if (!confirm('Confirmar consolidação das horas para ' + mes + '/' + ano + '?')) {
+        return;
+    }
+    
+    // Criar formulário temporário e enviar
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://www.taskflowgranatt.com.br/apuracao/consolidar';
+    
+    // Adicionar campos
+    const mesInput = document.createElement('input');
+    mesInput.type = 'hidden';
+    mesInput.name = 'mes';
+    mesInput.value = mes;
+    form.appendChild(mesInput);
+    
+    const anoInput = document.createElement('input');
+    anoInput.type = 'hidden';
+    anoInput.name = 'ano';
+    anoInput.value = ano;
+    form.appendChild(anoInput);
+    
+    if (projeto_id) {
+        const projetoInput = document.createElement('input');
+        projetoInput.type = 'hidden';
+        projetoInput.name = 'projeto_id';
+        projetoInput.value = projeto_id;
+        form.appendChild(projetoInput);
+    }
+    
+    // Adicionar ao DOM e enviar
+    document.body.appendChild(form);
+    form.submit();
+}
+
+// Função para liberar todas as apurações pendentes
+function liberarTodos() {
+    const mes = document.getElementById('mes').value;
+    const ano = document.getElementById('ano').value;
+    const projeto_id = document.getElementById('projeto_id').value;
+    
+    if (!confirm('Confirmar liberação de TODAS as apurações pendentes para ' + mes + '/' + ano + '?')) {
+        return;
+    }
+    
+    // Criar formulário temporário e enviar
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://www.taskflowgranatt.com.br/apuracao/liberar-todos';
+    
+    // Adicionar campos
+    const mesInput = document.createElement('input');
+    mesInput.type = 'hidden';
+    mesInput.name = 'mes';
+    mesInput.value = mes;
+    form.appendChild(mesInput);
+    
+    const anoInput = document.createElement('input');
+    anoInput.type = 'hidden';
+    anoInput.name = 'ano';
+    anoInput.value = ano;
+    form.appendChild(anoInput);
+    
+    if (projeto_id) {
+        const projetoInput = document.createElement('input');
+        projetoInput.type = 'hidden';
+        projetoInput.name = 'projeto_id';
+        projetoInput.value = projeto_id;
+        form.appendChild(projetoInput);
+    }
+    
+    // Adicionar ao DOM e enviar
+    document.body.appendChild(form);
+    form.submit();
+}
+
+// Função para desfazer liberação de todas as apurações pendentes
+function desfazerLiberacaoTodos() {
+    const mes = document.getElementById('mes').value;
+    const ano = document.getElementById('ano').value;
+    const projeto_id = document.getElementById('projeto_id').value;
+
+    if (!confirm('Confirmar desfazer liberação de TODAS as apurações liberadas (sem anexos) para ' + mes + '/' + ano + '?\n\nApenas apurações sem anexos serão afetadas.')) {
+        return;
+    }
+
+    // Criar formulário temporário e enviar
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://www.taskflowgranatt.com.br/apuracao/desfazer-liberacao-todos';
+
+    // Adicionar campos
+    const mesInput = document.createElement('input');
+    mesInput.type = 'hidden';
+    mesInput.name = 'mes';
+    mesInput.value = mes;
+    form.appendChild(mesInput);
+
+    const anoInput = document.createElement('input');
+    anoInput.type = 'hidden';
+    anoInput.name = 'ano';
+    anoInput.value = ano;
+    form.appendChild(anoInput);
+
+    if (projeto_id) {
+        const projetoInput = document.createElement('input');
+        projetoInput.type = 'hidden';
+        projetoInput.name = 'projeto_id';
+        projetoInput.value = projeto_id;
+        form.appendChild(projetoInput);
+    }
+
+    // Adicionar ao DOM e enviar
+    document.body.appendChild(form);
+    form.submit();
+}
+
+// Função para carregar anexos de uma apuração
+function carregarAnexos(apuracaoId) {
+    const container = document.getElementById('anexos-' + apuracaoId);
+    
+    // Fazer requisição AJAX para buscar anexos
+    fetch('https://www.taskflowgranatt.com.br/apuracao/anexos?apuracao_id=' + apuracaoId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                exibirAnexos(container, data.anexos);
+            } else {
+                container.innerHTML = '<div class="alert alert-warning"><i class="mdi mdi-alert-circle"></i>' + (data.message || 'Erro ao carregar anexos.') + '</div>';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar anexos:', error);
+            container.innerHTML = '<div class="alert alert-danger"><i class="mdi mdi-alert-circle"></i>Erro ao carregar anexos. Tente novamente.</div>';
+        });
+}
+
+// Função para exibir anexos no modal
+function exibirAnexos(container, anexos) {
+    if (!anexos || anexos.length === 0) {
+        container.innerHTML = '<div class="text-center py-4"><i class="mdi mdi-file-document-outline text-muted" style="font-size: 3rem;"></i><h6 class="text-muted mt-2">Nenhum anexo encontrado</h6><p class="text-muted">Esta apuração ainda não possui anexos.</p></div>';
+        return;
+    }
+    
+    let html = '<div class="table-responsive"><table class="table table-hover">';
+    html += '<thead><tr><th>Arquivo</th><th>Descrição</th><th>Tamanho</th><th>Data</th><th>Ações</th></tr></thead><tbody>';
+    
+    anexos.forEach(anexo => {
+        const tamanho = formatarTamanho(anexo.tamanho);
+        const data = new Date(anexo.created_at).toLocaleDateString('pt-BR');
+        const extensao = anexo.nome_arquivo.split('.').pop().toLowerCase();
+        const podeVisualizar = ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'txt'].includes(extensao);
+        
+        html += '<tr>' +
+                '<td>' +
+                    '<i class="mdi mdi-file-document-outline text-primary"></i>' +
+                    '<strong>' + anexo.nome_arquivo + '</strong>' +
+                    '<br><small class="text-muted">' + extensao.toUpperCase() + '</small>' +
+                '</td>' +
+                '<td>' + anexo.descricao + '</td>' +
+                '<td><span class="badge bg-light text-dark">' + tamanho + '</span></td>' +
+                '<td>' + data + '</td>' +
+                '<td>' +
+                    '<div class="btn-group" role="group">' +
+                        '<button type="button" class="btn btn-sm btn-outline-primary" onclick="downloadAnexo(' + anexo.id + ')">' +
+                            '<i class="mdi mdi-download"></i> Download' +
+                        '</button>' +
+                        (podeVisualizar ? '<button type="button" class="btn btn-sm btn-outline-info" onclick="visualizarAnexo(' + anexo.id + ', \'' + anexo.nome_arquivo + '\', \'' + extensao + '\')"><i class="mdi mdi-eye"></i> Visualizar</button>' : '') +
+                        '' +
+                    '</div>' +
+                '</td>' +
+            '</tr>';
+    });
+    
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+}
+
+// Função para formatar tamanho de arquivo
+function formatarTamanho(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// Função para download de anexo
+function downloadAnexo(anexoId) {
+    // Criar um link temporário para download
+    const link = document.createElement('a');
+    link.href = 'https://www.taskflowgranatt.com.br/apuracao/download-anexo?id=' + anexoId;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Função para visualizar anexo
+function visualizarAnexo(anexoId, nomeArquivo, tipoArquivo) {
+    // Verificar se o arquivo pode ser visualizado
+    const extensoesVisualizaveis = ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'txt'];
+    const extensao = nomeArquivo.split('.').pop().toLowerCase();
+    
+    if (!extensoesVisualizaveis.includes(extensao)) {
+        alert('Este tipo de arquivo não pode ser visualizado diretamente.\n\nArquivos suportados: PDF, JPG, PNG, GIF, TXT');
+        return;
+    }
+    
+    // Abrir em nova aba
+    window.open('https://www.taskflowgranatt.com.br/apuracao/visualizar-anexo?id=' + anexoId, '_blank');
+}
+
+// Função para excluir anexo (apenas administradores)
+function excluirAnexo(anexoId, nomeArquivo) {
+    if (!confirm('Confirmar exclusão do anexo "' + nomeArquivo + '"?\n\nEsta ação não pode ser desfeita.')) {
+        return;
+    }
+    
+    // Fazer requisição AJAX para excluir anexo
+    fetch('https://www.taskflowgranatt.com.br/apuracao/excluir-anexo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'anexo_id=' + anexoId
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Recarregar anexos do modal atual
+            const modal = document.querySelector('.modal.show');
+            if (modal) {
+                const apuracaoId = modal.id.replace('modalVisualizarAnexos', '');
+                carregarAnexos(apuracaoId);
+            }
+            
+            // Mostrar mensagem de sucesso
+            alert('Anexo excluído com sucesso!');
+        } else {
+            alert('Erro ao excluir anexo: ' + (data.message || 'Erro desconhecido'));
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao excluir anexo:', error);
+        alert('Erro ao excluir anexo. Tente novamente.');
+    });
+}
+
+// Função para confirmar exclusão de apuração (verifica anexos)
+function confirmarExclusao(apuracaoId, nomeUsuario) {
+    // Verificar se há anexos primeiro
+    fetch('https://www.taskflowgranatt.com.br/apuracao/anexos?apuracao_id=' + apuracaoId)
+        .then(response => response.json())
+        .then(data => {
+            let mensagem = 'Confirmar exclusão da apuração de ' + nomeUsuario + '?\n\nEsta ação não pode ser desfeita.';
+            
+            if (data.success && data.anexos && data.anexos.length > 0) {
+                mensagem += '\n\n⚠️ ATENÇÃO: Esta apuração possui ' + data.anexos.length + ' anexo(s) que também serão removidos.';
+            }
+            
+            if (confirm(mensagem)) {
+                // Se confirmar, encontrar o formulário e enviar
+                const forms = document.querySelectorAll('form[action*="excluir-apuracao"]');
+                forms.forEach(form => {
+                    const input = form.querySelector('input[name="apuracao_id"]');
+                    if (input && input.value == apuracaoId) {
+                        form.submit();
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao verificar anexos:', error);
+            // Fallback: confirmação simples se não conseguir verificar anexos
+            if (confirm('Confirmar exclusão da apuração de ' + nomeUsuario + '?\n\nEsta ação não pode ser desfeita.')) {
+                const forms = document.querySelectorAll('form[action*="excluir-apuracao"]');
+                forms.forEach(form => {
+                    const input = form.querySelector('input[name="apuracao_id"]');
+                    if (input && input.value == apuracaoId) {
+                        form.submit();
+                    }
+                });
+            }
+        });
+    
+    return false; // Previne o submit automático
+}
+
+// Função para desfazer apuração do mês (apenas administradores)
+function desfazerApuracao() {
+    const mes = document.getElementById('mes').value;
+    const ano = document.getElementById('ano').value;
+    const projeto_id = document.getElementById('projeto_id').value;
+    
+    // Obter nome do mês
+    const meses = {
+        1: 'Janeiro', 2: 'Fevereiro', 3: 'Março', 4: 'Abril',
+        5: 'Maio', 6: 'Junho', 7: 'Julho', 8: 'Agosto',
+        9: 'Setembro', 10: 'Outubro', 11: 'Novembro', 12: 'Dezembro'
+    };
+    const nomeMes = meses[mes] || mes;
+    
+    if (!confirm('Confirmar exclusão de TODAS as apurações de ' + nomeMes + '/' + ano + '?\n\nEsta ação irá:\n- Excluir todas as apurações do período\n- Permitir nova consolidação\n- NÃO pode ser desfeita\n\nCertifique-se de que não há anexos vinculados.')) {
+        return;
+    }
+    
+    // Criar formulário temporário e enviar
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://www.taskflowgranatt.com.br/apuracao/desfazer-apuracao';
+    
+    // Adicionar campos
+    const mesInput = document.createElement('input');
+    mesInput.type = 'hidden';
+    mesInput.name = 'mes';
+    mesInput.value = mes;
+    form.appendChild(mesInput);
+    
+    const anoInput = document.createElement('input');
+    anoInput.type = 'hidden';
+    anoInput.name = 'ano';
+    anoInput.value = ano;
+    form.appendChild(anoInput);
+    
+    if (projeto_id) {
+        const projetoInput = document.createElement('input');
+        projetoInput.type = 'hidden';
+        projetoInput.name = 'projeto_id';
+        projetoInput.value = projeto_id;
+        form.appendChild(projetoInput);
+    }
+    
+    // Adicionar ao DOM e enviar
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
+
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const toggleIcon = sidebarToggle.querySelector('i');
+            
+            // Clear localStorage to start fresh
+            localStorage.removeItem('sidebarCollapsed');
+            
+            // Check if sidebar state is saved in localStorage
+            const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            
+            if (sidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+                sidebarToggle.classList.add('collapsed');
+                toggleIcon.classList.remove('fa-bars');
+                toggleIcon.classList.add('fa-chevron-right');
+            } else {
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-bars');
+            }
+            
+            // Toggle do menu desktop
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                sidebarToggle.classList.toggle('collapsed');
+                
+                // Toggle icon
+                if (sidebar.classList.contains('collapsed')) {
+                    toggleIcon.classList.remove('fa-bars');
+                    toggleIcon.classList.add('fa-chevron-right');
+                    localStorage.setItem('sidebarCollapsed', 'true');
+                } else {
+                    toggleIcon.classList.remove('fa-chevron-right');
+                    toggleIcon.classList.add('fa-bars');
+                    localStorage.setItem('sidebarCollapsed', 'false');
+                }
+            });
+            
+            // Toggle do menu mobile
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    sidebarOverlay.classList.toggle('show');
+                    document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
+                });
+            }
+            
+            // Fechar menu mobile ao clicar no overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            // Fechar menu mobile ao redimensionar para desktop
+            function handleResize() {
+                if (window.innerWidth <= 768) {
+                    // Em mobile, sempre começar com menu fechado
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                    
+                    // Manter comportamento desktop
+                    if (!sidebarCollapsed) {
+                        sidebar.classList.remove('collapsed');
+                        mainContent.classList.remove('expanded');
+                        sidebarToggle.classList.remove('collapsed');
+                    }
+                } else {
+                    // Em desktop, restaurar estado salvo
+                    if (sidebarCollapsed) {
+                        sidebar.classList.add('collapsed');
+                        mainContent.classList.add('expanded');
+                        sidebarToggle.classList.add('collapsed');
+                    }
+                }
+            }
+            
+            // Initial check
+            handleResize();
+            
+            // Listen for window resize
+            window.addEventListener('resize', handleResize);
+            
+            // Add active class to current page
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') && currentPath.includes(link.getAttribute('href').split('/').pop())) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
